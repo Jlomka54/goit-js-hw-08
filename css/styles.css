@@ -18,12 +18,19 @@ ul {
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  column-gap: 24px;
+  row-gap: 48px;
 }
-li {
-  flex-basis: calc((100% - 20px) / 3);
+.gallery-item {
+  width: 360px;
+  height: 100%;
+  flex-basis: calc((100% - 48px) / 3);
 }
-img {
+.gallery-image {
   max-width: 100%;
   display: block;
+  transition: transform 300ms ease;
+}
+.gallery-image:hover {
+  transform: scale(1.1);
 }
