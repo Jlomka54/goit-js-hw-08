@@ -66,19 +66,19 @@ const images = [
 const imgList = document.querySelector(".gallery");
 
 
-const galaryItems = images.map(image => {
+const galaryItems = images.map(({preview, original, description}) => {
     const listItem = document.createElement('li');
     const listItemLink = document.createElement('a');
     const listItemImage = document.createElement('img');
     listItem.classList.add("gallery-item");
 
     listItemLink.classList.add('gallery-link');
-    listItemLink.setAttribute('href', image.original);
+    listItemLink.setAttribute('href', original);
 
     listItemImage.classList.add('gallery-image');
-    listItemImage.setAttribute('src', image.preview);
-    listItemImage.setAttribute('data-souce', image.original)
-    listItemImage.alt = image.description;
+    listItemImage.setAttribute('src', preview);
+    listItemImage.setAttribute('data-source', original)
+    listItemImage.alt = description;
     
     listItem.append(listItemLink);
     listItemLink.append(listItemImage);
@@ -87,13 +87,23 @@ const galaryItems = images.map(image => {
 })
 imgList.append(...galaryItems);
  
-imgList.addEventListener('click',openPhoto)
+imgList.addEventListener('click', openPhoto);
+
 function openPhoto(event) {
+
     event.preventDefault();
 
+    if (event.target.nodeName !== "IMG") {
+        return;
+    }
+
+    const instance = basicLightbox.create(`
+         <img src=${event.target.dataset.source} >
+        `)
+    
+    instance.show()
 }
-
-
+    
 
 
 
